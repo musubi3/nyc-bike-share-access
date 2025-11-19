@@ -20,6 +20,8 @@
     <!-- Your styles + script -->
     <link rel="stylesheet" href="styles.css">
     <script src="scripts/main.js" defer></script>
+    <script src="scripts/heatmap.js" defer></script>
+
 </head>
 
 <body>
@@ -55,6 +57,18 @@
 
             <div id="tooltip" class="tooltip"></div>
         </section>
+        <section class="viz-section">
+        <h2>Hourly Activity by Day of Week</h2>
+        <p class="description">
+            This heatmap shows how Citi Bike usage varies across hours of the day and days of the week.
+            Darker cells indicate more trips. Weekday rush hours stand out compared to quieter nights and weekends.
+        </p>
+
+        <div id="heatmap-container">
+            <svg id="heatmap"></svg>
+        </div>
+        </section>
+
     </div>
 </body>
 
