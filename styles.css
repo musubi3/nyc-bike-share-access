@@ -52,7 +52,7 @@ header h1 {
     padding: 0.25rem 0.5rem;
 }
 
-/* Chart container */
+/* Map container */
 
 #chart-container {
     background: white;
@@ -61,9 +61,21 @@ header h1 {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-svg#map {
+/* Mapbox map div */
+#map {
     width: 100%;
     height: 650px;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* The SVG overlay that D3 appends inside the map canvas container */
+.overlay-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* let mouse events pass through to Mapbox except for tooltips */
 }
 
 /* Station circles */
@@ -72,12 +84,14 @@ svg#map {
     stroke: white;
     stroke-width: 0.5px;
     cursor: pointer;
-    opacity: 0.9;
+    opacity: 0.85;
+    pointer-events: auto; /* needed so we can hover for tooltip */
+    filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.15));
 }
 
 .station-circle:hover {
     stroke: black;
-    stroke-width: 1px;
+    stroke-width: 1;
     opacity: 1;
 }
 
@@ -95,10 +109,10 @@ svg#map {
     max-width: 240px;
     opacity: 0;
     transition: opacity 0.15s ease-out;
-    z-index: 10;
+    z-index: 1000;
 }
 
-/* Legend text */
+/* Legend (fixed in top-right corner of map) */
 
 .legend {
     font-size: 12px;

@@ -1,40 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Project</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Station Demand Map</title>
 
     <!-- Mapbox GL JS -->
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
-    <!-- D3 -->
+    <!-- D3 libraries -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
-    <!-- Your styles + script -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Shared CSS + JS -->
+    <link rel="stylesheet" href="styles.css" />
     <script src="scripts/main.js" defer></script>
 </head>
-
 <body>
     <div class="content">
         <header>
-            <h1>Final Project</h1>
-            <p class="authors">Justin Lee, Andrew Kim, Angela Yuan, Victor Chen</p>
-            <p class="subtitle">Citi Bike Station Demand in NYC (January 2023 sample)</p>
+            <h1>Station Demand Map</h1>
+            <p class="subtitle">Interactive view to validate the demand visualization separately</p>
         </header>
 
         <section class="viz-section">
             <p class="description">
-                This interactive map shows how busy each Citi Bike station is. Circle size encodes the total number of
-                trips passing through a station, and color shows whether it is more of a departure hub (green) or an
-                arrival hub (brown). Use the time-of-day filter to see how the pattern changes across the day.
+                This page mirrors the main station demand visualization so you can check it in isolation.
+                Use the dropdown to filter by time of day. Circle size = total trips; color = departures vs arrivals.
             </p>
 
             <div id="controls">
@@ -57,5 +50,4 @@
         </section>
     </div>
 </body>
-
 </html>
