@@ -27,6 +27,13 @@
         </header>
 
         <section class="viz-section">
+            <h2>Shifting Gears: How Station Usage Changes Throughout the Day</h2>
+            <p class="description">
+                This interactive map shows how busy each Citi Bike station is. Circle size encodes the total number
+                of trips passing through a station, and color shows whether it is more of a departure hub (green) or an
+                arrival hub (brown). Use the time-of-day filter to see how the pattern changes across the day.
+            </p>
+
             <div id="chart-container">
                 <div id="controls">
                     <label for="time-filter"><strong>Time of day:</strong></label>
@@ -40,46 +47,47 @@
                 </div>
 
                 <div id="map"></div>
-
-                <p class="description">
-                    This interactive map shows how busy each Citi Bike station is. Circle size encodes the total number
-                    of
-                    trips passing through a station, and color shows whether it is more of a departure hub (green) or an
-                    arrival hub (brown). Use the time-of-day filter to see how the pattern changes across the day.
-                </p>
             </div>
         </section>
+
         <section class="viz-section">
             <h2>Hourly Activity by Day of Week</h2>
             <p class="description">
                 This heatmap shows how Citi Bike usage varies across hours of the day and days of the week.
-                Darker cells indicate more trips. Weekday rush hours stand out compared to quieter nights and weekends.
+                Darker cells indicate more trips. Weekday rush hours stand out compared to quieter nights and
+                weekends.
             </p>
 
             <div id="heatmap-container">
                 <svg id="heatmap"></svg>
             </div>
         </section>
+
         <section class="viz-section">
             <h2>Station Demand by Time of Day (Departures vs Arrivals)</h2>
             <p class="description">
-                This static visualization compares the number of Citi Bike departures and arrivals by hour of day across
+                This static visualization compares the number of Citi Bike departures and arrivals by hour of day
+                across
                 New York City.
                 It highlights commuting behavior such as morning departure spikes and evening arrival surges.
             </p>
-
-            <div id="hourly-chart"></div>
+            <div id="chart-container">
+                <div id="hourly-chart"></div>
+            </div>
         </section>
+
         <section class="viz-section">
             <h2>Station Flow Map (Static Scatter Plot)</h2>
             <p class="description">
                 This static map visualizes how busy each Citi Bike station is. Circle size reflects total traffic
                 (departures + arrivals), and color indicates whether a station serves more as a departure hub (blue)
-                or arrival hub (red). This complements the time-of-day chart by showing where physical demand clusters
+                or arrival hub (red). This complements the time-of-day chart by showing where physical demand
+                clusters
                 occur across NYC.
             </p>
-
-            <div id="static-flow-map"></div>
+            <div id="chart-container">
+                <div id="static-flow-map"></div>
+            </div>
         </section>
 
         <section class="viz-section">
@@ -89,15 +97,17 @@
                 Use the sliders to adjust the maximum duration included and the bin size.
             </p>
 
-            <div id="duration-controls">
-                <label><strong>Max Duration (min):</strong> <span id="max-value">60</span></label>
-                <input type="range" id="max-duration" min="10" max="180" value="60" step="5">
+            <div id="chart-container">
+                <div id="duration-controls">
+                    <label><strong>Max Duration (min):</strong> <span id="max-value">60</span></label>
+                    <input type="range" id="max-duration" min="10" max="180" value="60" step="5">
 
-                <label><strong>Bin Size (min):</strong> <span id="bin-value">5</span></label>
-                <input type="range" id="bin-size" min="1" max="30" value="5" step="1">
+                    <label><strong>Bin Size (min):</strong> <span id="bin-value">5</span></label>
+                    <input type="range" id="bin-size" min="1" max="30" value="5" step="1">
+                </div>
+
+                <div id="duration-chart"></div>
             </div>
-
-            <div id="duration-chart"></div>
         </section>
 
         <section class="viz-section">
@@ -129,10 +139,6 @@
             </div>
         </section>
     </div>
-    <script type="module">
-        import { drawDurationChart } from "./scripts/chart-duration.js";
-        drawDurationChart();
-    </script>
 </body>
 
 </html>

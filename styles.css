@@ -56,6 +56,7 @@ header h1 {
 
 #chart-container {
     background: white;
+    margin-top: 2em;
     border-radius: 8px;
     padding: 0.75rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
