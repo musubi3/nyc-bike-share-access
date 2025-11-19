@@ -71,7 +71,7 @@ heatmapG.append("text")
   .text("Day of Week");
 
 // Load the Citi Bike data
-d3.csv("202301-citibike-50k.csv", d3.autoType).then(data => {
+d3.csv("data/202301-citibike-50k.csv", d3.autoType).then(data => {
   // Aggregate trips by (dayOfWeek, hour)
   const countsMap = new Map(); // key: `${dow}-${hour}`, value: count
 
