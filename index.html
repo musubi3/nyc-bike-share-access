@@ -6,20 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Project</title>
 
-    <!-- Mapbox GL JS -->
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
       rel="stylesheet"
     />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
-    <!-- D3 -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
-    <!-- Your styles + script -->
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts/main.js" defer></script>
+    <script src="scripts/main.js" type="module"></script>
 </head>
 
 <body>
@@ -49,7 +46,6 @@
             </div>
 
             <div id="chart-container">
-                <!-- Mapbox will render into this div -->
                 <div id="map"></div>
             </div>
 
