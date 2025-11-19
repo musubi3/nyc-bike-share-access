@@ -17,7 +17,7 @@ export async function drawEquityMap() {
         .attr("width", width)
         .attr("height", height)
         .attr("viewBox", [0, 0, width, height])
-        .style("background-color", "#a6d5fa")
+        .style("background-color", "#f1f1f1ff")
         .style("border-radius", "4px");
 
     const mapLayer = svg.append("g");
