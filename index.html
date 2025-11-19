@@ -5,22 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Project</title>
-
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
     <link rel="stylesheet" href="styles.css">
     <script src="scripts/main.js" type="module"></script>
 </head>
 
 <body>
     <div class="content">
+        <div id="tooltip" class="tooltip"></div>
+
         <header>
             <h1>Final Project</h1>
             <p class="authors">Justin Lee, Andrew Kim, Angela Yuan, Victor Chen</p>
@@ -28,28 +24,27 @@
         </header>
 
         <section class="viz-section">
-            <p class="description">
-                This interactive map shows how busy each Citi Bike station is. Circle size encodes the total number of
-                trips passing through a station, and color shows whether it is more of a departure hub (green) or an
-                arrival hub (brown). Use the time-of-day filter to see how the pattern changes across the day.
-            </p>
-
-            <div id="controls">
-                <label for="time-filter"><strong>Time of day:</strong></label>
-                <select id="time-filter">
-                    <option value="all">All day</option>
-                    <option value="morning">Morning (06:00–12:00)</option>
-                    <option value="afternoon">Afternoon (12:00–18:00)</option>
-                    <option value="evening">Evening (18:00–24:00)</option>
-                    <option value="night">Night (00:00–06:00)</option>
-                </select>
-            </div>
-
             <div id="chart-container">
-                <div id="map"></div>
-            </div>
+                <div id="controls">
+                    <label for="time-filter"><strong>Time of day:</strong></label>
+                    <select id="time-filter">
+                        <option value="all">All day</option>
+                        <option value="morning">Morning (06:00-12:00)</option>
+                        <option value="afternoon">Afternoon (12:00-18:00)</option>
+                        <option value="evening">Evening (18:00-24:00)</option>
+                        <option value="night">Night (00:00-06:00)</option>
+                    </select>
+                </div>
 
-            <div id="tooltip" class="tooltip"></div>
+                <div id="map"></div>
+
+                <p class="description">
+                    This interactive map shows how busy each Citi Bike station is. Circle size encodes the total number
+                    of
+                    trips passing through a station, and color shows whether it is more of a departure hub (green) or an
+                    arrival hub (brown). Use the time-of-day filter to see how the pattern changes across the day.
+                </p>
+            </div>
         </section>
     </div>
 </body>
