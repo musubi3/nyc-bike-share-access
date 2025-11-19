@@ -231,3 +231,76 @@ header h1 {
     fill: #f97316;
     stroke-width: 2;
 }
+
+
+/* --- Modern Toggle Switch --- */
+
+#equity-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Space between switch and text */
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* The Container */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    margin-bottom: 0; /* Override default label margins */
+}
+
+/* Hide default HTML checkbox */
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The Slider (Background) */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc; /* Default Gray */
+    transition: .4s;
+    border-radius: 34px; /* Rounded edges */
+}
+
+/* The Circle (Knob) */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Subtle shadow for depth */
+}
+
+/* Active State: Blue Background */
+input:checked + .slider {
+    background-color: #007bff; /* Matches your map bubbles */
+}
+
+/* Active State: Move Knob */
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* Label Text Styling */
+.toggle-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #444;
+    cursor: pointer;
+}

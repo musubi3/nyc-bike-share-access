@@ -50,53 +50,77 @@
             </div>
         </section>
         <section class="viz-section">
-        <h2>Hourly Activity by Day of Week</h2>
-        <p class="description">
-            This heatmap shows how Citi Bike usage varies across hours of the day and days of the week.
-            Darker cells indicate more trips. Weekday rush hours stand out compared to quieter nights and weekends.
-        </p>
+            <h2>Hourly Activity by Day of Week</h2>
+            <p class="description">
+                This heatmap shows how Citi Bike usage varies across hours of the day and days of the week.
+                Darker cells indicate more trips. Weekday rush hours stand out compared to quieter nights and weekends.
+            </p>
 
-        <div id="heatmap-container">
-            <svg id="heatmap"></svg>
-        </div>
+            <div id="heatmap-container">
+                <svg id="heatmap"></svg>
+            </div>
         </section>
         <section class="viz-section">
             <h2>Station Demand by Time of Day (Departures vs Arrivals)</h2>
             <p class="description">
-                This static visualization compares the number of Citi Bike departures and arrivals by hour of day across New York City.
+                This static visualization compares the number of Citi Bike departures and arrivals by hour of day across
+                New York City.
                 It highlights commuting behavior such as morning departure spikes and evening arrival surges.
             </p>
-        
+
             <div id="hourly-chart"></div>
         </section>
         <section class="viz-section">
             <h2>Station Flow Map (Static Scatter Plot)</h2>
             <p class="description">
-                This static map visualizes how busy each Citi Bike station is. Circle size reflects total traffic 
-                (departures + arrivals), and color indicates whether a station serves more as a departure hub (blue) 
-                or arrival hub (red). This complements the time-of-day chart by showing where physical demand clusters 
+                This static map visualizes how busy each Citi Bike station is. Circle size reflects total traffic
+                (departures + arrivals), and color indicates whether a station serves more as a departure hub (blue)
+                or arrival hub (red). This complements the time-of-day chart by showing where physical demand clusters
                 occur across NYC.
             </p>
-        
+
             <div id="static-flow-map"></div>
         </section>
 
         <section class="viz-section">
-        <h2>Trip Duration Distribution</h2>
-        <p class="description">
-            This histogram compares Citi Bike trip durations between members and casual riders.
-            Use the sliders to adjust the maximum duration included and the bin size.
-        </p>
+            <h2>Trip Duration Distribution</h2>
+            <p class="description">
+                This histogram compares Citi Bike trip durations between members and casual riders.
+                Use the sliders to adjust the maximum duration included and the bin size.
+            </p>
 
-        <div id="duration-controls">
-            <label><strong>Max Duration (min):</strong> <span id="max-value">60</span></label>
-            <input type="range" id="max-duration" min="10" max="180" value="60" step="5">
+            <div id="duration-controls">
+                <label><strong>Max Duration (min):</strong> <span id="max-value">60</span></label>
+                <input type="range" id="max-duration" min="10" max="180" value="60" step="5">
 
-            <label><strong>Bin Size (min):</strong> <span id="bin-value">5</span></label>
-            <input type="range" id="bin-size" min="1" max="30" value="5" step="1">
-        </div>
+                <label><strong>Bin Size (min):</strong> <span id="bin-value">5</span></label>
+                <input type="range" id="bin-size" min="1" max="30" value="5" step="1">
+            </div>
 
-        <div id="duration-chart"></div>
+            <div id="duration-chart"></div>
+        </section>
+
+        <section class="viz-section">
+            <h2>Transit Equity: The Gap Map</h2>
+            <p class="description">
+                This map overlays Citi Bike stations (dark blue bubbles) on top of Census vehicle availability data.
+                <br>
+                <strong>Red/Orange Areas:</strong> Neighborhoods with <strong>high car-free populations</strong>.
+            </p>
+
+            <div id="equity-map-container"
+                style="background:white; padding:1rem; border-radius:8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+
+                <div id="equity-controls">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle-stations" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Show Citi Bike Stations</span>
+                </div>
+
+                <div id="equity-map"></div>
+            </div>
         </section>
     </div>
     <script type="module">
