@@ -135,6 +135,33 @@
 
             </div>
         </section>
+
+        <section class="write-up">
+            <h2>Writeup</h2>
+            <p>
+                So far, we’ve cleaned and filtered the January 2023 Citi Bike dataset, joined external Census data where
+                necessary, and built three interactive visualizations using D3, Mapbox, and custom UI controls. The
+                first visualization is a station-usage map that shows how busy each station is throughout the day, where
+                circle size represents total trip volume and circle color indicates whether a station is used more for
+                departures or arrivals. The second is a trip duration histogram that compares member and casual rider
+                behavior, with adjustable sliders that let users change the maximum duration and bin size. The third
+                visualization is an equity-focused “Gap Map”, which overlays Citi Bike station locations on top of
+                neighborhood-level car-free household data to highlight areas with limited access to stations. These
+                visualizations are the start for understanding ridership patterns, transit inequities, and movement
+                across New York City.
+            </p>
+            <p>
+                The most challenging part of the project will be refining the visual encodings so that the map remains
+                interpretable as more features and data layers are introduced. As we incorporate additional
+                interactions, it’s a bit risky because it might be overwhelming for viewers or patterns may be harder to
+                recognize. Integrating external demographic data at a finer geographic level may also be difficult,
+                since it requires preprocessing and aligning different datasets while maintaining performance and visual
+                clarity. Another challenge will be developing a clear narrative that guides users toward meaningful
+                takeaways rather than leaving the dashboard overly exploratory. Finally, balancing added complexity with
+                usability will require iterative testing and design decisions to ensure the final product communicates
+                insights without sacrificing simplicity.
+            </p>
+        </section>
     </div>
 </body>
 
