@@ -241,7 +241,8 @@ header h1 {
     padding: 0.75rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin-top: 1rem;
-    overflow: hidden; /* <--- ADD THIS: Clips the content to the rounded corners */
+    overflow: hidden;
+    /* <--- ADD THIS: Clips the content to the rounded corners */
 }
 
 
@@ -360,4 +361,50 @@ input:checked+.slider:before {
     font-weight: 600;
     color: #444;
     cursor: pointer;
+}
+
+/* Writeup Section Styling */
+.write-up-card {
+    background: white;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #007bff;
+}
+
+.write-up-card h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.write-up-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.write-up-column h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.write-up-column p {
+    line-height: 1.7;
+    color: #444;
+    font-size: 0.95rem;
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .write-up-grid {
+        grid-template-columns: 1fr;
+    }
 }
