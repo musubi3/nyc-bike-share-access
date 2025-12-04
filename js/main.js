@@ -3,37 +3,52 @@ import { addEquityLayer } from './layer-equity.js';
 import { addGapLayer } from './layer-gap.js';
 import { addSubwayLayer } from './layer-subway.js';
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiYW55dWFuIiwiYSI6ImNtaTBzd3o5ZTEya2Uycm9xMDZtNTdzZjcifQ.2KddgkMMu4gC-gn_ioRr7w'; 
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiYW55dWFuIiwiYSI6ImNtaTBzd3o5ZTEya2Uycm9xMDZtNTdzZjcifQ.2KddgkMMu4gC-gn_ioRr7w';
 
 const STORY_STEPS = [
     {
         step: 1,
         title: "The Pulse of the City",
-        content: "New York City has one of the largest bike-share systems in the world. Every day, millions of trips trace the rhythms of how people move.<br><br>Over <strong>1,700 stations</strong> light up the grid. <strong>Larger circles</strong> represent busier stations. Blue dots are primarily member hubs, while red dots are casual hotspots.",
-        btnText: "Next: The Hidden Layer →", 
-        
+        content: "New York City has one of the largest bike-share systems in the world. " +
+            "Every day, millions of trips trace the rhythms of how people move.<br><br>" +
+            "Over <strong>1,700 stations</strong> light up the grid. <strong>Larger circles</strong> represent busier stations.<br><br>" +
+            "<div style='margin-top: 10px;'>" +
+            "<span class='legend-item'><span class='legend-dot dot-member'></span> Member</span>" +
+            "<span class='legend-item'><span class='legend-dot dot-casual'></span> Casual</span>" +
+            "</div>",
+        btnText: "Next: The Hidden Layer →",
         center: [-73.98, 40.75], zoom: 11
     },
     {
         step: 2,
         title: "The Hidden Layer",
-        content: "However, the system isn’t shared equally. <br><br>Red areas represent neighborhoods where households are predominantly <strong>Car-Free</strong>. While the <strong>Subway (Gray Lines)</strong> serves the core well, notice how bike station coverage drops off sharply in the outer boroughs, leaving the subway to do all the heavy lifting alone.",
+        content: "However, the system isn’t shared equally.<br><br>" +
+            "Red areas represent neighborhoods where households are predominantly <strong>Car-Free</strong>.<br>" +
+            "<div class='legend-bar'></div>" +
+            "<div class='legend-labels'><span>High Car Ownership</span><span>High Car-Free %</span></div>" +
+            "While the <strong>Subway (Gray Lines)</strong> serves the core well " +
+            "notice how bike station coverage drops off sharply in the outer boroughs, " +
+            "leaving the subway to do all the heavy lifting alone.",
         btnText: "Next: Bridging the Gap →",
-        
         center: [-73.94, 40.70], zoom: 10
     },
     {
         step: 3,
         title: "Bridging the Gap",
-        content: "To bridge this gap, the next phase must target 'Transit Deserts'. <br><br>We’ve identified five neighborhoods (highlighted in Cyan) like <strong>East Flatbush</strong> and <strong>Corona</strong>. <br><br>Notice how they sit in the <strong>empty spaces between subway lines</strong>? These are dense communities (over <strong>68,000 households</strong> combined) with no train and no bikes—the perfect gap for Citi Bike to fill.",
+        content: "To bridge this gap, the next phase must target 'Transit Deserts'.<br><br>" +
+            "<span class='legend-item'><span class='legend-dot dot-cyan'></span> Target Neighborhoods</span><br><br>" +
+            "We’ve identified five neighborhoods like <strong>East Flatbush</strong> and <strong>Corona</strong>." +
+            "<br><br>Notice how they sit in the <strong>empty spaces between subway lines</strong>? These are dense " +
+            "communities (over <strong>68,000 households</strong> combined) with minimal train access and no bikes, the perfect gap " +
+            "for Citi Bike to fill.",
+
         btnText: "Restart Story ↺",
-        
         center: [-73.90, 40.65], zoom: 10.5
     }
 ];
 
 let currentStepIndex = 0;
-let isStationsVisible = true; 
+let isStationsVisible = true;
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 const map = new mapboxgl.Map({
@@ -49,7 +64,7 @@ map.on('load', async () => {
         d3.csv('data/202301-citibike-50k.csv'),
         d3.csv('data/nyc_transit_equity.csv'),
         d3.json('data/nyc_tracts.geojson'),
-        d3.json('data/nyc_subway.geojson') 
+        d3.json('data/nyc_subway.geojson')
     ]);
 
     const stationMap = new Map();
@@ -77,7 +92,7 @@ map.on('load', async () => {
         features: Array.from(stationMap.values()).map(s => ({
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [s.lng, s.lat] },
-            properties: { 
+            properties: {
                 name: s.name,
                 count: s.count,
                 majority_type: (s.member >= s.casual) ? 'member' : 'casual'
@@ -98,10 +113,10 @@ map.on('load', async () => {
     tractsGeoJSON.features.forEach(feature => {
         const geoid = feature.properties.geoid || feature.properties.GEOID;
         const data = equityLookup.get(String(geoid));
-        
+
         feature.properties.pct_car_free = data ? data.pct : 0;
         feature.properties.total_households = data ? data.households : 0;
-        
+
         const nta = feature.properties.ntaname;
         if (nta) {
             if (!neighborhoodStats.has(nta)) {
@@ -110,16 +125,16 @@ map.on('load', async () => {
             const stats = neighborhoodStats.get(nta);
             const households = feature.properties.total_households;
             const carFreePct = feature.properties.pct_car_free;
-            
+
             stats.households += households;
-            stats.carFreeHouseholds += (households * carFreePct); 
+            stats.carFreeHouseholds += (households * carFreePct);
         }
     });
 
     tractsGeoJSON.features.forEach(feature => {
         const nta = feature.properties.ntaname;
         const stats = neighborhoodStats.get(nta);
-        
+
         if (stats && stats.households > 0) {
             feature.properties.nta_total_households = stats.households;
             feature.properties.nta_avg_car_free = stats.carFreeHouseholds / stats.households;
@@ -129,9 +144,9 @@ map.on('load', async () => {
         }
     });
 
-    addEquityLayer(map, tractsGeoJSON);   
-    addSubwayLayer(map, subwayGeoJSON);    
-    addGapLayer(map);                      
+    addEquityLayer(map, tractsGeoJSON);
+    addSubwayLayer(map, subwayGeoJSON);
+    addGapLayer(map);
     addStationLayer(map, stationsGeoJSON);
 
     updateStoryUI(0);
@@ -139,7 +154,7 @@ map.on('load', async () => {
 
 function updateStoryUI(index) {
     const step = STORY_STEPS[index];
-    
+
     document.getElementById('step-count').innerText = `Part ${index + 1} of ${STORY_STEPS.length}`;
     document.getElementById('story-title').innerText = step.title;
     document.getElementById('story-text').innerHTML = step.content;
@@ -155,12 +170,12 @@ function updateStoryUI(index) {
             if (step.step === 1) {
                 isStationsVisible = true;
                 const toggleInput = document.getElementById('station-toggle');
-                if(toggleInput) toggleInput.checked = true;
+                if (toggleInput) toggleInput.checked = true;
             }
         }
     }
 
-    updateMapLayers(); 
+    updateMapLayers();
     map.flyTo({ center: step.center, zoom: step.zoom, speed: 1.2 });
 }
 
@@ -168,14 +183,14 @@ function updateMapLayers() {
     const stepNum = STORY_STEPS[currentStepIndex].step;
 
     const stepSettings = {
-        1: { stationMax: 0.8, equity: 0, gapLine: 0, gapFill: 0, subway: 0 },   
-        2: { stationMax: 0.4, equity: 0.7, gapLine: 0, gapFill: 0, subway: 0.4 }, 
-        3: { stationMax: 0, equity: 0.3, gapLine: 0.7, gapFill: 0.4, subway: 0.3 }     
+        1: { stationMax: 0.8, equity: 0, gapLine: 0, gapFill: 0, subway: 0 },
+        2: { stationMax: 0.4, equity: 0.7, gapLine: 0, gapFill: 0, subway: 0.4 },
+        3: { stationMax: 0, equity: 0.3, gapLine: 0.7, gapFill: 0.4, subway: 0.3 }
     };
 
     const settings = stepSettings[stepNum];
     const finalStationOpacity = isStationsVisible ? settings.stationMax : 0;
-    
+
     if (map.getLayer('stations-points')) {
         map.setPaintProperty('stations-points', 'circle-opacity', finalStationOpacity);
         map.setPaintProperty('stations-points', 'circle-stroke-opacity', finalStationOpacity);
@@ -215,7 +230,7 @@ document.getElementById('next-btn').addEventListener('click', () => {
         currentStepIndex++;
         updateStoryUI(currentStepIndex);
     } else {
-        currentStepIndex = 0; 
+        currentStepIndex = 0;
         updateStoryUI(currentStepIndex);
     }
 });
