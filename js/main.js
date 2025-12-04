@@ -2,6 +2,7 @@ import { addStationLayer } from './layer-stations.js';
 import { addEquityLayer } from './layer-equity.js';
 import { addGapLayer } from './layer-gap.js';
 import { addSubwayLayer } from './layer-subway.js';
+import { addBuildingLayer } from './layer-buildings.js';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiYW55dWFuIiwiYSI6ImNtaTBzd3o5ZTEya2Uycm9xMDZtNTdzZjcifQ.2KddgkMMu4gC-gn_ioRr7w';
 
@@ -15,7 +16,7 @@ const STORY_STEPS = [
             "showing how the system is heavily concentrated in the commercial core.",
         btnText: "Next: The Hidden Layer →",
         center: [-73.9, 40.7],
-        zoom: 10.5,
+        zoom: 10.65,
         pitch: 0,
         bearing: 0
     },
@@ -31,7 +32,7 @@ const STORY_STEPS = [
             "leaving the subway to do all the heavy lifting alone.",
         btnText: "Next: Bridging the Gap →",
         center: [-73.9, 40.70],
-        zoom: 10.5,
+        zoom: 10.65,
         pitch: 0,
         bearing: 0
     },
@@ -47,7 +48,7 @@ const STORY_STEPS = [
 
         btnText: "Restart Story ↺",
         center: [-73.9, 40.7],
-        zoom: 10.5,
+        zoom: 10.65,
         pitch: 45,
         bearing: 0
     }
@@ -155,6 +156,7 @@ map.on('load', async () => {
         addSubwayLayer(map, subwayGeoJSON);
         addGapLayer(map);
         addStationLayer(map, stationsGeoJSON);
+        addBuildingLayer(map);
 
         updateStoryUI(0);
 
@@ -208,9 +210,9 @@ function updateMapLayers() {
     const stepNum = STORY_STEPS[currentStepIndex].step;
 
     const stepSettings = {
-        1: { stationMax: 0.8, equity: 0, gapLine: 0, gapFill: 0, subway: 0 },
-        2: { stationMax: 0.4, equity: 0.7, gapLine: 0, gapFill: 0, subway: 0.4 },
-        3: { stationMax: 0, equity: 0.3, gapLine: 0.7, gapFill: 0.4, subway: 0.3 }
+        1: { stationMax: 0.8, equity: 0, gapLine: 0, gapFill: 0, subway: 0, buildings: 0.3 },
+        2: { stationMax: 0.4, equity: 0.7, gapLine: 0, gapFill: 0, subway: 0.4, buildings: 0.6 },
+        3: { stationMax: 0, equity: 0.3, gapLine: 0.7, gapFill: 0.4, subway: 0.3, buildings: 0.6 }
     };
 
     const settings = stepSettings[stepNum];
@@ -231,6 +233,9 @@ function updateMapLayers() {
     }
     if (map.getLayer('subway-lines-draw')) {
         map.setPaintProperty('subway-lines-draw', 'line-opacity', settings.subway);
+    }
+    if (map.getLayer('3d-buildings')) {
+        map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', settings.buildings);
     }
 }
 
