@@ -10,21 +10,24 @@ const STORY_STEPS = [
         step: 1,
         title: "The Pulse of the City",
         content: "New York City has one of the largest bike-share systems in the world. Every day, millions of trips trace the rhythms of how people move.<br><br>Over <strong>1,700 stations</strong> light up the grid. <strong>Larger circles</strong> represent busier stations. Blue dots are primarily member hubs, while red dots are casual hotspots.",
-        btnText: "Next: The Equity Gap →",
+        btnText: "Next: The Hidden Layer →", 
+        
         center: [-73.98, 40.75], zoom: 11
     },
     {
         step: 2,
         title: "The Hidden Layer",
         content: "However, the system isn’t shared equally. <br><br>Red areas represent neighborhoods where households are predominantly <strong>Car-Free</strong>. While the <strong>Subway (Gray Lines)</strong> serves the core well, notice how bike station coverage drops off sharply in the outer boroughs, leaving the subway to do all the heavy lifting alone.",
-        btnText: "Next: The Opportunity →",
+        btnText: "Next: Bridging the Gap →",
+        
         center: [-73.94, 40.70], zoom: 10
     },
     {
         step: 3,
         title: "Bridging the Gap",
-        content: "To bridge this gap, the next phase must target 'Transit Deserts'. <br><br>We’ve identified five neighborhoods (highlighted in Cyan) like <strong>East Flatbush</strong> and <strong>Corona</strong>. <br><br>Notice how they sit in the <strong>empty spaces between subway lines</strong>? These are dense communities (over <strong>68,000 households</strong> combined) with no train and no bikes, the perfect gap for Citi Bike to fill.",
+        content: "To bridge this gap, the next phase must target 'Transit Deserts'. <br><br>We’ve identified five neighborhoods (highlighted in Cyan) like <strong>East Flatbush</strong> and <strong>Corona</strong>. <br><br>Notice how they sit in the <strong>empty spaces between subway lines</strong>? These are dense communities (over <strong>68,000 households</strong> combined) with no train and no bikes—the perfect gap for Citi Bike to fill.",
         btnText: "Restart Story ↺",
+        
         center: [-73.90, 40.65], zoom: 10.5
     }
 ];
