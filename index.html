@@ -4,169 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Project</title>
+    <title>The City Where Bike Share Isn’t Shared</title>
+
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="scripts/main.js"></script>
 </head>
 
 <body>
-    <div class="content">
-        <div id="tooltip" class="tooltip"></div>
 
-        <header>
-            <h1>Final Project</h1>
-            <p class="authors">Justin Lee, Andrew Kim, Angela Yuan, Victor Chen</p>
-            <p class="subtitle">Citi Bike Station Demand in NYC (January 2023 sample)</p>
-        </header>
+    <div id="map"></div>
 
-        <section class="viz-section">
-            <h2>Shifting Gears: How Station Usage Changes Throughout the Day</h2>
-            <p class="description">
-                This interactive map shows how busy each Citi Bike station is. Circle size encodes the total number
-                of trips passing through a station, and color shows whether it is more of a departure hub (green) or an
-                arrival hub (brown). Use the time-of-day filter to see how the pattern changes across the day.
-            </p>
+    <div id="story-card">
+        <div class="card-header">
+            <span id="step-count">Part 1 of 3</span>
+            <h2 id="story-title">The Pulse of the City</h2>
+        </div>
 
-            <div id="chart-container">
-                <div id="controls">
-                    <label for="time-filter"><strong>Time of day:</strong></label>
-                    <select id="time-filter">
-                        <option value="all">All day</option>
-                        <option value="morning">Morning (06:00-12:00)</option>
-                        <option value="afternoon">Afternoon (12:00-18:00)</option>
-                        <option value="evening">Evening (18:00-24:00)</option>
-                        <option value="night">Night (00:00-06:00)</option>
-                    </select>
-                </div>
+        <div class="card-body">
+            <p id="story-text">...</p>
 
-                <div id="map"></div>
+            <div id="layer-toggles">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="station-toggle" checked>
+                    <span class="slider"></span>
+                    <span class="label-text">Show Stations</span>
+                </label>
             </div>
-        </section>
+        </div>
 
-        <!-- <section class="viz-section">
-            <h2>Hourly Activity by Day of Week</h2>
-            <p class="description">
-                This heatmap shows how Citi Bike usage varies across hours of the day and days of the week.
-                Darker cells indicate more trips. Weekday rush hours stand out compared to quieter nights and
-                weekends.
-            </p>
-
-            <div id="heatmap-container">
-                <svg id="heatmap"></svg>
-            </div>
-        </section>
-
-        <section class="viz-section">
-            <h2>Station Demand by Time of Day (Departures vs Arrivals)</h2>
-            <p class="description">
-                This static visualization compares the number of Citi Bike departures and arrivals by hour of day
-                across
-                New York City.
-                It highlights commuting behavior such as morning departure spikes and evening arrival surges.
-            </p>
-            <div id="chart-container">
-                <div id="hourly-chart"></div>
-            </div>
-        </section>
-
-        <section class="viz-section">
-            <h2>Station Flow Map (Static Scatter Plot)</h2>
-            <p class="description">
-                This static map visualizes how busy each Citi Bike station is. Circle size reflects total traffic
-                (departures + arrivals), and color indicates whether a station serves more as a departure hub (blue)
-                or arrival hub (red). This complements the time-of-day chart by showing where physical demand
-                clusters
-                occur across NYC.
-            </p>
-            <div id="chart-container">
-                <div id="static-flow-map"></div>
-            </div>
-        </section> -->
-
-        <section class="viz-section">
-            <h2>Trip Duration Distribution</h2>
-            <p class="description">
-                This histogram compares Citi Bike trip durations between members and casual riders.
-                Use the sliders to adjust the maximum duration included and the bin size.
-            </p>
-
-            <div id="chart-container">
-                <div id="duration-controls">
-                    <label><strong>Max Duration (min):</strong> <span id="max-value">60</span></label>
-                    <input type="range" id="max-duration" min="10" max="180" value="60" step="5">
-
-                    <label><strong>Bin Size (min):</strong> <span id="bin-value">5</span></label>
-                    <input type="range" id="bin-size" min="1" max="30" value="5" step="1">
-                </div>
-
-                <div id="duration-chart"></div>
-            </div>
-        </section>
-
-        <section class="viz-section">
-            <h2>Transit Equity: The Gap Map</h2>
-            <p class="description">
-                This map overlays Citi Bike stations (dark blue bubbles) on top of Census vehicle availability data.
-                <br>
-                <strong>Red/Orange Areas:</strong> Neighborhoods with <strong>high car-free populations</strong>.
-            </p>
-
-            <div id="equity-map-container">
-
-                <div id="equity-controls">
-                    <div class="control-group">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="toggle-stations" checked>
-                            <span class="slider"></span>
-                        </label>
-                        <span class="toggle-label">Show Citi Bike Stations</span>
-                    </div>
-
-                    <button id="recenter-btn" class="btn-pill">
-                        ⟲ Recenter Map
-                    </button>
-                </div>
-
-                <div id="equity-map"></div>
-
-            </div>
-        </section>
-
-        <section class="write-up-card">
-            <h2>Project Methodology</h2>
-
-            <div class="write-up-grid">
-                <div class="write-up-column">
-                    <h3>What We Built</h3>
-                    <p>
-                        So far, we’ve cleaned and filtered the January 2023 Citi Bike dataset, joined external Census
-                        data where necessary, and built three interactive visualizations using D3, Mapbox, and custom UI
-                        controls. The first visualization is a station-usage map that shows how busy each station is
-                        throughout the day. The second is a trip duration histogram that compares member and casual
-                        rider behavior. The third visualization is an equity-focused “Gap Map”, which overlays Citi Bike
-                        station locations on top of neighborhood-level car-free household data to highlight areas with
-                        limited access.
-                    </p>
-                </div>
-
-                <div class="write-up-column">
-                    <h3>Design Challenges</h3>
-                    <p>
-                        The most challenging aspect is refining visual encodings so the map remains interpretable as
-                        more data layers are introduced. As we incorporate additional interactions, we risk overwhelming
-                        viewers or obscuring patterns. Integrating external demographic data at a finer geographic level
-                        also requires complex preprocessing. Finally, balancing added complexity with usability will
-                        require iterative testing to ensure the final product communicates insights without sacrificing
-                        simplicity.
-                    </p>
-                </div>
-            </div>
-        </section>
+        <div class="card-controls">
+            <button id="prev-btn" disabled>← Back</button>
+            <button id="next-btn">Next: The Hidden Layer →</button>
+        </div>
     </div>
+
+    <button id="recenter-btn" aria-label="Reset Map View">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+        <span>Recenter</span>
+    </button>
+
+    <div id="project-meta">
+        <h1>The City Where Bike Share Isn't Shared</h1>
+        <p class="authors">Justin Lee, Andrew Kim, Angela Yuan, Victor Chen</p>
+        <p class="sources">
+            <strong>Sources:</strong><br>
+            Citi Bike System Data (Jan 2023)<br>
+            Car-Free Households: Census Reporter (2021 ACS)<br>
+            Subway Routes: NYU Spatial Data Repo (2016)
+        </p>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>
