@@ -14,12 +14,10 @@ export function addBuildingLayer(map) {
             'minzoom': 10,
             'paint': {
                 'fill-extrusion-color': '#d9d9d9',
-                
-                // === REALISTIC HEIGHT (1:1 Scale) ===
                 'fill-extrusion-height': [
                     'interpolate', ['linear'], ['zoom'],
-                    10, 0,                   // Start rising at Zoom 10
-                    10.5, ['get', 'height']  // Reach FULL real height at Story View
+                    10, 0,               
+                    10.5, ['get', 'height']  
                 ],
                 
                 'fill-extrusion-base': [
