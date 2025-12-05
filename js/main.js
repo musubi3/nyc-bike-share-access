@@ -242,7 +242,7 @@ function updateStoryUI(index) {
 
     const toggleContainer = document.getElementById('layer-toggles');
     if (toggleContainer) {
-        if (step.step === 2) {
+        if (step.step === 2 || step.step === 3) {
             toggleContainer.style.display = 'block';
         } else {
             toggleContainer.style.display = 'none';
@@ -270,7 +270,7 @@ function updateMapLayers() {
     const stepSettings = {
         1: { stationMax: 0.8, equity: 0, gapLine: 0, gapFill: 0, subway: 0, buildings: 0.3 },
         2: { stationMax: 0.4, equity: 0.7, gapLine: 0, gapFill: 0, subway: 0.4, buildings: 0.6 },
-        3: { stationMax: 0, equity: 0.3, gapLine: 0.7, gapFill: 0.4, subway: 0.3, buildings: 0.6 }
+        3: { stationMax: 0.1, equity: 0.4, gapLine: 0.7, gapFill: 0.4, subway: 0.3, buildings: 0.6 }
     };
 
     const settings = stepSettings[stepNum];

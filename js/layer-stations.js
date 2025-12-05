@@ -29,7 +29,7 @@ export function addStationLayer(map, data) {
     const popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false });
 
     map.on('mouseenter', 'stations-points', (e) => {
-        if (map.getPaintProperty('stations-points', 'circle-opacity') === 0) return;
+        if (map.getPaintProperty('stations-points', 'circle-opacity') < 0.2) return;
 
         map.getCanvas().style.cursor = 'pointer';
         const coordinates = e.features[0].geometry.coordinates.slice();
