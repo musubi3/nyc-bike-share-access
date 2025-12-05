@@ -15,7 +15,7 @@ const STORY_STEPS = [
             "Over <strong>2,000 stations</strong> light up the grid. <strong>Larger circles</strong> represent busier stations, " +
             "showing how the system is heavily concentrated in the commercial core.",
         btnText: "Next: The Hidden Layer →",
-        centerDesktop: [-73.9, 40.74],
+        centerDesktop: [-74, 40.74],
         centerMobile: [-73.96, 40.63],
         zoomDesktop: 11,
         zoomMobile: 9.8,
@@ -33,7 +33,7 @@ const STORY_STEPS = [
             "notice how bike station coverage drops off sharply in the outer boroughs, " +
             "leaving the subway to do all the heavy lifting alone.",
         btnText: "Next: Bridging the Gap →",
-        centerDesktop: [-73.9, 40.74],
+        centerDesktop: [-74, 40.74],
         centerMobile: [-73.96, 40.47],
         zoomDesktop: 10,
         zoomMobile: 9,
@@ -49,7 +49,7 @@ const STORY_STEPS = [
             "These are dense communities (over 140,000 households combined) with high car-free populations and limited train access, the perfect frontier for Citi Bike's next expansion.",
 
         btnText: "Restart ↺",
-        centerDesktop: [-73.9, 40.68],
+        centerDesktop: [-74, 40.68],
         centerMobile: [-73.96, 40.5],
         zoomDesktop: 10.5,
         zoomMobile: 10,
