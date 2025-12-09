@@ -36,6 +36,6 @@ We utilized three primary datasets to build this analysis:
 | Dataset | Source | Description |
 | :--- | :--- | :--- |
 | **Citi Bike Trip Data** | [Citi Bike System Data](https://citibikenyc.com/system-data) | Random sample of 100,000 trips from **January 2025**. Used to generate station density and usage metrics. |
-| **Vehicle Availability** | [Census Reporter (ACS 2021)](https://censusreporter.org/) | "Household Size by Vehicles Available" (Table B08201) at the Census Tract level. Used to calculate Car-Free %. |
+| **Vehicle Availability** | [Census Reporter (ACS 2023)](https://censusreporter.org/) | "Household Size by Vehicles Available" (Table B08201) at the Census Tract level. Used to calculate Car-Free %. |
 | **Subway Routes** | [NYU Spatial Data Repository](https://geo.nyu.edu/catalog/nyu-2451-60067) | Geospatial lines for all active NYC subway routes (2019). Used to visually prove transit gaps. |
 | **Neighborhood Tabulation Areas** | [NYC Open Data](https://data.cityofnewyork.us/City-Government/2020-Census-Tracts/63ge-mke6/about_data) | GeoJSON boundaries for aggregating census tracts into recognizable neighborhoods. |
