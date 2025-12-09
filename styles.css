@@ -42,6 +42,10 @@
     }
 }
 
+.content {
+    margin-bottom: 2rem;
+}
+
 .launch-btn {
     display: inline-block;
     padding: 1rem 2rem;
@@ -69,7 +73,6 @@
 
 .tag {
     transition: all 0.2s ease;
-    margin-bottom: 1.5rem;
 }
 
 .tag:hover {
@@ -134,4 +137,10 @@
 
 .hero-container:hover .overlay-text {
     transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .launch-btn {
+        padding: 0.8rem 1.6rem;
+    }
 }
