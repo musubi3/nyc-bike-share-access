@@ -21,20 +21,25 @@
 }
 
 .content>* {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
 }
 
-.content .project-header { animation-delay: 0.2s; }
-.content .project-section { animation-delay: 0.4s; }
+.content .project-header {
+    animation-delay: 0.2s;
+}
+
+.content .project-section {
+    animation-delay: 0.4s;
+}
 
 
 @keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .launch-btn {
@@ -43,8 +48,8 @@
     background-color: var(--launch);
     color: white;
     text-decoration: none;
-    font-weight: 700;
-    border-radius: 50px;
+    font-weight: 500;
+    border-radius: 12px;
     transition: transform 0.2s, background-color 0.2s;
     box-shadow: 0 2px 12px var(--card-shadow);
 }
@@ -72,11 +77,61 @@
     transform: translateY(-2px) !important;
 }
 
-.hero-image {
+.hero-container {
     display: block;
+    position: relative;
     margin-top: 1.5rem;
     width: 650px;
     max-width: 100%;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    transform: translateZ(0);
+}
+
+.hero-img {
+    width: 100%;
+    display: block;
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-text {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    background-color: oklch(35% 10% 200 / 0.55);
+    transform: translateY(10px);
+    transition: transform 0.3s ease;
+}
+
+
+.hero-container:hover .hero-img {
+    filter: blur(4px);
+    transform: scale(1.03);
+}
+
+.hero-container:hover .hero-overlay {
+    opacity: 1;
+}
+
+.hero-container:hover .overlay-text {
+    transform: translateY(0);
 }
