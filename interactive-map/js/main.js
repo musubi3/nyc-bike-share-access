@@ -82,10 +82,10 @@ const ZONE_MAPPING = {
 map.on('load', async () => {
     try {
         const [stationsData, equityData, tractsGeoJSON, subwayGeoJSON] = await Promise.all([
-            d3.csv('data/202501-citibike-sample.csv'),
-            d3.csv('data/nyc_transit_equity.csv'),
-            d3.json('data/nyc_tracts.geojson'),
-            d3.json('data/nyc_subway.geojson')
+            d3.csv('../data/202501-citibike-sample.csv'),
+            d3.csv('../data/nyc_transit_equity.csv'),
+            d3.json('../data/nyc_tracts.geojson'),
+            d3.json('../data/nyc_subway.geojson')
         ]);
 
         const stationMap = new Map();
