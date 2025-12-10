@@ -43,11 +43,23 @@ const STORY_STEPS = [
     {
         step: 3,
         title: "Bridging the Gap",
-        content: "To close this gap, the next phase must target the remaining 'Transit Deserts'.<br><br>" +
-            "<span class='legend-item'><span class='legend-dot dot-cyan'></span> Future Expansion</span><br><br>" +
-            "We’ve identified five new areas such as <strong>Flushing</strong> and <strong>Brownsville</strong>. " +
-            "These are dense communities (over 140,000 households combined) with high car-free populations and limited train access, the perfect frontier for Citi Bike's next expansion.",
-
+        content: "To close this gap, the next expansion must target the remaining 'Transit Deserts'.<br><br>" +
+            "<span class='legend-item'><span class='legend-dot' style='background:#00e5ff; border:1px solid #00b8d4;'></span> Algorithm Selections</span><br><br>" +
+            "We’ve created an algorithm that identified priority zones such as <strong>{NEIGHBORHOOD_1}</strong> and <strong>{NEIGHBORHOOD_2}</strong>. " +
+            "These are dense communities (over <strong>{HOUSEHOLDS} households</strong> combined) with high car-free populations and limited train access.",
+        fullContent: `
+            <h3>How the Algorithm Works</h3>
+            <p>To scientifically identify these zones, we ran a site-suitability analysis on all 2,000+ NYC census tracts.</p>
+            
+            <p>We calculated a <strong>Priority Score</strong> for every tract using these weighted factors:</p>
+            <ul style="margin-bottom:1rem; padding-left:1.5rem;">
+                <li><strong>Transit Need (45%):<br></strong>Prioritizing areas with high car-free rates.</li><br>
+                <li><strong>Population Density (40%):<br></strong>Ensuring new stations serve the most people.</li><br>
+                <li><strong>Network Gap (15%):<br></strong> Favoring areas far from existing stations.</li>
+            </ul>
+            
+            <p>Finally, we <strong>filtered out Manhattan</strong> to ensure the roadmap focused exclusively on equity gaps in the outer boroughs.</p>
+        `,
         btnText: "Restart ↺",
         centerDesktop: [-74, 40.68],
         centerMobile: [-73.96, 40.43],
@@ -70,22 +82,14 @@ const map = new mapboxgl.Map({
     interactive: true
 });
 
-const ZONE_MAPPING = {
-    "Coney Island-Sea Gate": "Coney Island & Brighton Beach",
-    "Brighton Beach": "Coney Island & Brighton Beach",
-    "East New York-City Line": "East New York & Spring Creek",
-    "Spring Creek-Starrett City": "East New York & Spring Creek",
-    "Soundview-Bruckner-Bronx River": "Soundview & Parkchester",
-    "Parkchester": "Soundview & Parkchester"
-};
-
 map.on('load', async () => {
     try {
-        const [stationsData, equityData, tractsGeoJSON, subwayGeoJSON] = await Promise.all([
+        const [stationsData, equityData, tractsGeoJSON, subwayGeoJSON, gapConfig] = await Promise.all([
             d3.csv('../data/202501-citibike-sample.csv'),
             d3.csv('../data/nyc_transit_equity.csv'),
             d3.json('../data/nyc_tracts.geojson'),
-            d3.json('../data/nyc_subway.geojson')
+            d3.json('../data/nyc_subway.geojson'),
+            d3.json('../data/gap_data.json')
         ]);
 
         const stationMap = new Map();
@@ -167,44 +171,33 @@ map.on('load', async () => {
             }
         });
 
-        const zoneStats = new Map();
+        const displayStats = new Map();
 
-        tractsGeoJSON.features.forEach(feature => {
-            const geoid = feature.properties.geoid || feature.properties.GEOID;
-            const data = equityLookup.get(String(geoid));
+        neighborhoodStats.forEach((stats, ntaName) => {
+            const displayName = gapConfig.group_mapping[ntaName] || ntaName;
 
-            feature.properties.pct_car_free = data ? data.pct : 0;
-            feature.properties.total_households = data ? data.households : 0;
-
-            const nta = feature.properties.ntaname;
-
-            const zoneName = ZONE_MAPPING[nta] || nta;
-
-            if (zoneName) {
-                if (!zoneStats.has(zoneName)) {
-                    zoneStats.set(zoneName, { households: 0, carFreeHouseholds: 0 });
-                }
-                const stats = zoneStats.get(zoneName);
-                const households = feature.properties.total_households;
-                const carFreePct = feature.properties.pct_car_free;
-
-                stats.households += households;
-                stats.carFreeHouseholds += (households * carFreePct);
+            if (!displayStats.has(displayName)) {
+                displayStats.set(displayName, { households: 0, carFreeHouseholds: 0 });
             }
+
+            const groupEntry = displayStats.get(displayName);
+            groupEntry.households += stats.households;
+            groupEntry.carFreeHouseholds += stats.carFreeHouseholds;
         });
 
         tractsGeoJSON.features.forEach(feature => {
             const nta = feature.properties.ntaname;
-            const zoneName = ZONE_MAPPING[nta] || nta; 
+            const displayName = gapConfig.group_mapping[nta] || nta;
 
-            const stats = zoneStats.get(zoneName);
+            feature.properties.display_name = displayName;
 
-            if (stats && stats.households > 0) {
-                feature.properties.display_name = zoneName; 
-                feature.properties.display_households = stats.households;
-                feature.properties.display_avg_car_free = stats.carFreeHouseholds / stats.households;
+            const finalStats = displayStats.get(displayName);
+
+            if (finalStats && finalStats.households > 0) {
+                feature.properties.display_households = finalStats.households;
+
+                feature.properties.display_avg_car_free = finalStats.carFreeHouseholds / finalStats.households;
             } else {
-                feature.properties.display_name = nta;
                 feature.properties.display_households = 0;
                 feature.properties.display_avg_car_free = 0;
             }
@@ -212,9 +205,38 @@ map.on('load', async () => {
 
         addEquityLayer(map, tractsGeoJSON);
         addSubwayLayer(map, subwayGeoJSON);
-        addGapLayer(map);
+        addGapLayer(map, gapConfig);
         addStationLayer(map, stationsGeoJSON);
         addBuildingLayer(map);
+
+        const topZones = gapConfig.display_list;
+        const top1 = topZones[0] || "Neighborhood A";
+        const top2 = topZones[1] || "Neighborhood B";
+
+        let totalGapHouseholds = 0;
+        const targetSet = new Set(topZones);
+
+        tractsGeoJSON.features.forEach(f => {
+            if (targetSet.has(f.properties.display_name)) {
+                totalGapHouseholds += f.properties.total_households;
+            }
+        });
+
+        const roundedTotal = Math.floor(totalGapHouseholds / 1000) * 1000;
+        const formattedHouseholds = roundedTotal.toLocaleString();
+        const step3 = STORY_STEPS[2];
+
+        const fillText = (text) => {
+            return text
+                .replace("{NEIGHBORHOOD_1}", top1)
+                .replace("{NEIGHBORHOOD_2}", top2)
+                .replace("{HOUSEHOLDS}", formattedHouseholds);
+        };
+
+        step3.content = fillText(step3.content);
+        if (step3.fullContent) {
+            step3.fullContent = fillText(step3.fullContent);
+        }
 
         updateStoryUI(0);
 
@@ -262,6 +284,21 @@ function updateStoryUI(index) {
         pitch: step.pitch || 0,
         bearing: step.bearing || 0
     });
+    
+    const readMoreBtn = document.getElementById('read-more-btn');
+
+    if (step.fullContent) {
+        if(readMoreBtn) {
+            readMoreBtn.style.display = 'inline-block';
+            readMoreBtn.onclick = () => {
+                document.getElementById('modal-title').innerText = step.title;
+                document.getElementById('modal-body').innerHTML = step.fullContent;
+                document.getElementById('text-modal').classList.add('active');
+            };
+        }
+    } else {
+        if(readMoreBtn) readMoreBtn.style.display = 'none';
+    }
 }
 
 function updateMapLayers() {
@@ -355,13 +392,13 @@ document.getElementById('prev-btn').addEventListener('click', () => {
 const infoBtn = document.getElementById('info-btn');
 const metaCard = document.getElementById('project-meta');
 const closeBtn = document.getElementById('meta-close-btn');
-const overlay = document.getElementById('modal-overlay'); 
+const overlay = document.getElementById('modal-overlay');
 
 if (infoBtn && metaCard && overlay) {
     infoBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         metaCard.classList.toggle('active');
-        overlay.classList.toggle('active'); 
+        overlay.classList.toggle('active');
     });
 }
 
@@ -377,3 +414,17 @@ if (closeBtn) {
 if (overlay) {
     overlay.addEventListener('click', closeModal);
 }
+
+const textModal = document.getElementById('text-modal');
+const closeModalBtn = document.getElementById('close-text-modal');
+
+if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+        textModal.classList.remove('active');
+    });
+}
+window.addEventListener('click', (e) => {
+    if (e.target === textModal) {
+        textModal.classList.remove('active');
+    }
+});

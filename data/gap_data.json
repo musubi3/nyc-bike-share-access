@@ -1,0 +1,37 @@
+{
+  "generated_at": "2025-12-09",
+  "target_zones": [
+    "Spring Creek-Starrett City",
+    "Parkchester",
+    "Brighton Beach",
+    "Flushing-Willets Point",
+    "Co-op City",
+    "Coney Island-Sea Gate",
+    "Norwood",
+    "Soundview-Bruckner-Bronx River",
+    "Rockaway Beach-Arverne-Edgemere",
+    "Brownsville"
+  ],
+  "group_mapping": {
+    "Spring Creek-Starrett City": "Spring Creek-Starrett City",
+    "Parkchester": "Parkchester & Soundview-Bruckner-Bronx River",
+    "Soundview-Bruckner-Bronx River": "Parkchester & Soundview-Bruckner-Bronx River",
+    "Brighton Beach": "Brighton Beach & Coney Island-Sea Gate",
+    "Coney Island-Sea Gate": "Brighton Beach & Coney Island-Sea Gate",
+    "Flushing-Willets Point": "Flushing-Willets Point",
+    "Co-op City": "Co-op City",
+    "Norwood": "Norwood",
+    "Rockaway Beach-Arverne-Edgemere": "Rockaway Beach-Arverne-Edgemere",
+    "Brownsville": "Brownsville"
+  },
+  "display_list": [
+    "Spring Creek-Starrett City",
+    "Parkchester & Soundview-Bruckner-Bronx River",
+    "Brighton Beach & Coney Island-Sea Gate",
+    "Flushing-Willets Point",
+    "Co-op City",
+    "Norwood",
+    "Rockaway Beach-Arverne-Edgemere",
+    "Brownsville"
+  ]
+}

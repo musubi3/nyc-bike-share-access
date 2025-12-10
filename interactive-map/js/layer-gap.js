@@ -1,20 +1,26 @@
 const GAP_ZONES = [
-    "Coney Island & Brighton Beach",
-    "East New York & Spring Creek",
-    "Soundview & Parkchester",
-    "Flushing-Willets Point",
-    "Brownsville"
+    "Parkchester",
+    "Far Rockaway-Bayswater",
+    "Brighton Beach",
+    "Rockaway Beach-Arverne-Edgemere",
+    "Co-op City",
+    "Coney Island-Sea Gate",
+    "Norwood",
+    "Spring Creek-Starrett City",
+    "Soundview-Bruckner-Bronx River"
 ];
 
-export function addGapLayer(map) {
-    // 1. THE FILL
+
+export function addGapLayer(map, config) {
+    const targetGroups = config.display_list;
+
     map.addLayer({
         id: 'gap-fill',
         type: 'fill',
-        source: 'tracts',
-        filter: ['in', 'display_name', ...GAP_ZONES],
+        source: 'tracts', 
+        filter: ['in', 'display_name', ...targetGroups], 
         paint: {
-            'fill-color': '#00e5ff',
+            'fill-color': '#00e5ff', 
             'fill-opacity': 0
         }
     });
@@ -23,7 +29,7 @@ export function addGapLayer(map) {
         id: 'gap-highlight',
         type: 'line',
         source: 'tracts',
-        filter: ['in', 'display_name', ...GAP_ZONES],
+        filter: ['in', 'display_name', ...targetGroups],
         paint: {
             'line-color': '#00b8d4',
             'line-width': 2,
