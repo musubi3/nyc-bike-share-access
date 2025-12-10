@@ -18,15 +18,36 @@ The narrative is told in three parts:
 
 3.  **The Next Frontier:** <br>Identifying 5 specific "Transit Deserts" (like Flushing and Brownsville), communities with high density, limited subway access, and no bike stations, that should be prioritized next.
 
-<img src="https://i.postimg.cc/tCLpBz7C/image-2025-12-08-020912916.png" style="border-radius: 8px">
+<a href="./interactive-map" target="_blank"><img src="assets/hero-image.png" style="border-radius: 8px"></a>
+
+---
+
+## 🤖 Methodology: Site Suitability Analysis
+To move beyond simple visual inspection, we developed a **Python-based optimization algorithm** to score every census tract in NYC for expansion priority.
+
+The algorithm calculates an **"Expansion Score" (0-100)** based on three weighted factors:
+
+1.  **Transit Need (45%):**<br>Prioritizes neighborhoods with high car-free household rates (ACS Data).<br><br>
+2.  **Population Density (40%):**<br>Ensures new stations serve the maximum number of residents.<br><br>
+3.  **Network Gap (15%):**<br>Favors areas that are geographically isolated from the current station network.<br><br>
+
+> **The Formula:**<br>
+> $Score = (0.40 \times Density) + (0.45 \times Need) + (0.15 \times Gap)$
+
+*See the full analysis script in [`notebooks/analysis.ipynb`](notebooks/analysis.ipynb).*
+
+---
+
+## 🗝️ Key Findings
+Our spatial analysis identified five specific neighborhoods, including <strong>Spring Creek-Starrett City</strong> and <strong>Parkchester & Soundview-Bruckner-Bronx River</strong>, that are high-density, heavily car-free (>60%), and completely unserved by bike share.
+
+Targeting these areas for the next expansion phase would connect over <strong>172,000 households</strong> to the transit network.
 
 ---
 
 ## 🛠 Tech Stack
-* **Mapbox GL JS:** For vector tile rendering, 3D extrusion, and camera control.
-* **D3.js (v7):** For data fetching (`d3.csv`, `d3.json`) and parsing.
-* **Vanilla JS (ES6+):** Custom "Controller" architecture to manage map state.
-* **HTML5/CSS3:** Responsive layout with glassmorphism UI.
+* **Frontend:**<br>Mapbox GL JS, D3.js, Vanilla ES6 JavaScript, HTML5/CSS3 (Glassmorphism UI).<br><br>
+* **Analysis:**<br>Python (Pandas, GeoPandas, Scikit-Learn, NetworkX).
 
 ---
 

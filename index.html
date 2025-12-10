@@ -49,7 +49,7 @@
             </a>
         </div>
 
-        <div class="report-section">
+        <div class="project-section">
             <h2>About</h2>
             <p>
                 New York City has one of the largest bike-share systems in the world, but coverage is not evenly
@@ -62,16 +62,81 @@
             </p>
         </div>
 
-        <div class="report-section">
+        <div class="project-section">
+            <h2>Methodology</h2>
+            <p>
+                We utilized a <strong>Site Suitability Analysis</strong> to move beyond simple visual inspection.
+                Using Python (GeoPandas & Scikit-Learn), we calculated a "Priority Score" for every census tract in NYC
+                based on three weighted factors:
+            </p>
+
+            <div class="algorithm-box">
+                <h3>The Expansion Formula</h3>
+                <p>
+                    Score = (Density * 0.40) + (Need * 0.45) + (Gap * 0.15)
+                </p>
+                <ul>
+                    <li><strong>Transit Need (45%):</strong> Prioritizes neighborhoods with high car-free households.
+                    </li>
+                    <li><strong>Population Density (40%):</strong> Ensures new stations serve the maximum number of
+                        residents.</li>
+                    <li><strong>Network Gap (15%):</strong> Targets areas furthest from the existing subway/bike grid.
+                    </li>
+                </ul>
+            </div>
+
+            <p><strong>Data Sources:</strong></p>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Dataset</th>
+                            <th>Source</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Citi Bike Trip Data</strong></td>
+                            <td><a href="https://citibikenyc.com/system-data" target="_blank">Citi Bike System Data</a>
+                            </td>
+                            <td>Random sample of 100,000 trips from <strong>January 2025</strong>. Used to generate
+                                station density and usage metrics.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vehicle Availability</strong></td>
+                            <td><a href="https://censusreporter.org/" target="_blank">Census Reporter (ACS 2023)</a>
+                            </td>
+                            <td>"Household Size by Vehicles Available" (Table B08201) at the Census Tract level. Used to
+                                calculate Car-Free %.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Subway Routes</strong></td>
+                            <td><a href="https://geo.nyu.edu/catalog/nyu-2451-60067" target="_blank">NYU Spatial Data
+                                    Repository</a></td>
+                            <td>Geospatial lines for active NYC subway routes (2019). Used to visually prove transit
+                                gaps.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neighborhood Tabulation Areas</strong></td>
+                            <td><a href="https://data.cityofnewyork.us/City-Government/2020-Census-Tracts/63ge-mke6/about_data"
+                                    target="_blank">NYC Open Data</a></td>
+                            <td>GeoJSON boundaries for aggregating census tracts into recognizable neighborhoods.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="project-section">
             <h2>Key Findings</h2>
             <p>
-                Our spatial analysis identified five specific neighborhoods, including <strong>Flushing</strong> and
-                <strong>Brownsville</strong>, that are high-density, heavily car-free (>60%), and completely unserved by
+                Our spatial analysis identified five specific neighborhoods, including <strong>Spring Creek-Starrett City</strong> and
+                <strong>Parkchester & Soundview-Bruckner-Bronx River</strong>, that are high-density, heavily car-free (>60%), and completely unserved by
                 bike share.
             </p>
             <p>
-                Targeting these areas for the next expansion phase would connect over <strong>140,000
-                    households</strong>
+                Targeting these areas for the next expansion phase would connect over <strong>172,000 households</strong>
                 to the transit network.
             </p>
         </div>
