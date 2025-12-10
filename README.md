@@ -18,7 +18,7 @@ The narrative is told in three parts:
 
 3.  **The Next Frontier:** <br>Identifying 5 specific "Transit Deserts" (like Flushing and Brownsville), communities with high density, limited subway access, and no bike stations, that should be prioritized next.
 
-<a href="./interactive-map" target="_blank"><img src="assets/hero-image.png" style="border-radius: 8px"></a>
+<a href="https://musubi3.github.io/nyc-bike-share-access/interactive-map" target="_blank"><img src="assets/hero-image.png" style="border-radius: 8px"></a>
 
 ---
 
