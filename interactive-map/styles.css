@@ -540,7 +540,7 @@ input:checked+.slider:before {
     }
 
     #story-text {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     #project-meta {
