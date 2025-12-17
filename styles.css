@@ -53,7 +53,7 @@
     color: white;
     text-decoration: none;
     font-weight: 500;
-    border-radius: 12px;
+    border-radius: 8px;
     transition: transform 0.2s, background-color 0.2s;
     box-shadow: 0 2px 12px var(--card-shadow);
 }
@@ -85,7 +85,7 @@
     position: relative;
     margin-top: 1.5rem;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     text-decoration: none;
@@ -159,7 +159,7 @@
     font-family: monospace;
     background: var(--input);
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid var(--input-border);
     box-shadow: 0 2px 6px var(--card-shadow);
 }
